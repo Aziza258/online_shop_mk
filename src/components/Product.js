@@ -1,20 +1,16 @@
-import React from "react";
+import React, { Component } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Navbar, Nav, NavLink } from 'react-bootstrap';
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Items from "./components/Items";
-import ShowFullItem from "./components/ShowFullItem";
-import Categories from "./components/Categories";
-import Product from "./components/Product";
-import About from "./components/About";
+import Header from "./Header";
+import Footer from "./Footer";
+import Items from "./Items";
+import ShowFullItem from "./ShowFullItem";
+import Categories from "./Categories";
+import About from "./About";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Login from "./components/Login";
-import ListNavbar from "./components/ListNavbar";
+import Login from "./Login";
 
-
-
-class App extends React.Component {
+export class Product extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -511,22 +507,20 @@ class App extends React.Component {
     this.deleteOrder = this.deleteOrder.bind(this)
     this.chooseCategory = this.chooseCategory.bind(this)
     this.onShowItem = this.onShowItem.bind(this)
-
   }
+
   render() {
     return (
-
       <div className="wrapper">
-        <Header orders={this.state.orders} onDelete={this.deleteOrder} />
-        <Routes>
-          <Route path='/' element={<Product />} />
-          <Route path='/contacts' element={<About />} />
-          <Route path='/reg' element={<ListNavbar />} />
-        </Routes>
+        {/* <Header orders={this.state.orders} onDelete={this.deleteOrder} /> */}
+        <Categories chooseCategory={this.chooseCategory} />
+        <Items onShowItem={this.onShowItem} items={this.state.currentItems} onAdd={this.addToOrder} />
+        {this.state.showFullItem && <ShowFullItem onAdd={this.addToOrder} onShowItem={this.onShowItem} item={this.state.fullIten} />}
+        <Footer />
       </div>
-
-    );
+    )
   }
+
 
   chooseCategory(category) {
     if (category === 'all') {
@@ -561,5 +555,5 @@ class App extends React.Component {
 
 }
 
-export default App;
 
+export default Product
